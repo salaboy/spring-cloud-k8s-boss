@@ -6,7 +6,7 @@
 
 
   <groupId>org.spring.cloud.k8s.examples</groupId>
-  <artifactId>minion</artifactId>
+  <artifactId>boss</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <packaging>jar</packaging>
