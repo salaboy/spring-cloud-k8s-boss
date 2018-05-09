@@ -5,6 +5,8 @@ import java.net.UnknownHostException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +22,10 @@ public class Controller {
     private static final Log log = LogFactory.getLog(Controller.class);
     private final String version = "0.1";
 
+    private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
+
+    private final String hostName = System.getenv("HOSTNAME");
+
     @Value("boss")
     private String appName;
 
@@ -27,7 +33,15 @@ public class Controller {
 
     }
 
-    @RequestMapping(method = GET)
+
+    @RequestMapping("/")
+    public String ribbonPing() {
+        LOG.info("Ribbon ping");
+        return this.hostName;
+    }
+
+
+    @RequestMapping(method = GET, path = "/boss")
     @ResponseBody
     public String minion() throws UnknownHostException {
 
