@@ -33,15 +33,12 @@ public class Controller {
 
     }
 
-
-    @RequestMapping("/")
-    public String ribbonPing() {
-        LOG.info("Ribbon ping");
-        return this.hostName;
+    @RequestMapping(method = POST, path = "/mission/{minion}")
+    public void mission(@PathVariable("minion") String minion) {
+        log.info("Minion: " + minion + " is ready to work!");
     }
 
-
-    @RequestMapping(method = GET, path = "/boss")
+    @RequestMapping(method = GET, path = "/")
     @ResponseBody
     public String minion() throws UnknownHostException {
 
@@ -169,8 +166,5 @@ public class Controller {
         return stringBuilder.toString();
     }
 
-    @RequestMapping(method = POST, path = "/mission/{minion}")
-    public void mission(@PathVariable("minion") String minion) {
-        log.info("Minion: " + minion + " is ready to work!");
-    }
+
 }

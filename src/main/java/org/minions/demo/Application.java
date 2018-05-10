@@ -12,9 +12,6 @@ public class Application implements CommandLineRunner {
 
     private static final Log log = LogFactory.getLog(Application.class);
 
-    @Value("${spring.application.name}")
-    private String appName;
-
     public static void main(String[] args) {
         SpringApplication.run(Application.class,
                               args);
