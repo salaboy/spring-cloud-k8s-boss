@@ -2,6 +2,7 @@ package org.minions.demo;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.Random;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -26,6 +27,8 @@ public class Controller {
 
     private final String hostName = System.getenv("HOSTNAME");
 
+    private String[] missionTypes = {"do the laundry", "mine some cryto currencies", "buy groceries", "read a book", "do some coding"};
+
     @Value("boss")
     private String appName;
 
@@ -34,8 +37,10 @@ public class Controller {
     }
 
     @RequestMapping(method = POST, path = "/mission/{minion}")
-    public void mission(@PathVariable("minion") String minion) {
+    public String mission(@PathVariable("minion") String minion) {
         log.info("Minion: " + minion + " is ready to work!");
+        int randomTask = new Random().nextInt(missionTypes.length);
+        return missionTypes[randomTask];
     }
 
     @RequestMapping(method = GET, path = "/")
@@ -165,6 +170,4 @@ public class Controller {
                                      "</span></code>");
         return stringBuilder.toString();
     }
-
-
 }
