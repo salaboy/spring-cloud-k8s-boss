@@ -45,7 +45,7 @@ public class Controller {
 
     @RequestMapping(method = GET, path = "/")
     @ResponseBody
-    public String minion() throws UnknownHostException {
+    public String boss() throws UnknownHostException {
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("Host: ").append(InetAddress.getLocalHost().getHostName()).append("<br/>");
