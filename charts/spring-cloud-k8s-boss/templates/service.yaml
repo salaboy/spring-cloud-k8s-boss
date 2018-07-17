@@ -8,6 +8,7 @@ metadata:
 {{- end }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
+    type: boss
 {{- if .Values.service.annotations }}
   annotations:
 {{ toYaml .Values.service.annotations | indent 4 }}
@@ -20,4 +21,4 @@ spec:
     protocol: TCP
     name: http
   selector:
-    app: {{ template "fullname" . }}
+    app: {{ .Values.service.name }}
