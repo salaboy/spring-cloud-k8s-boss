@@ -7,7 +7,7 @@
 
   <groupId>org.spring.cloud.k8s.examples</groupId>
   <artifactId>boss</artifactId>
-  <version>1.0.33</version>
+  <version>1.0-SNAPSHOT</version>
 
   <packaging>jar</packaging>
 
