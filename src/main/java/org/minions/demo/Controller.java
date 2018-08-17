@@ -1,18 +1,15 @@
 package org.minions.demo;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
-import java.util.Random;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.util.Random;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -20,31 +17,23 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 public class Controller {
 
-    private static final Log log = LogFactory.getLog(Controller.class);
     private final String version = "0.1";
 
     private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
-
-    private final String hostName = System.getenv("HOSTNAME");
 
     private String[] missionTypes = {"do the laundry", "mine some cryto currencies", "buy groceries", "read a book", "do some coding"};
 
     @Value("boss")
     private String appName;
 
-    public Controller() {
-
-    }
-
     @RequestMapping(method = POST, path = "/mission/{minion}")
     public String mission(@PathVariable("minion") String minion) {
-        log.info("Minion: " + minion + " is ready to work!");
+        LOG.info("Minion: " + minion + " is ready to work!");
         int randomTask = new Random().nextInt(missionTypes.length);
         return missionTypes[randomTask];
     }
 
     @RequestMapping(method = GET, path = "/")
-    @ResponseBody
     public String boss() throws UnknownHostException {
 
         StringBuilder stringBuilder = new StringBuilder();
