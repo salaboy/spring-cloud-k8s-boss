@@ -1,0 +1,31 @@
+apiVersion: skaffold/v1alpha2
+kind: Config
+build:
+  tagPolicy:
+    envTemplate:
+      template: "{{.DOCKER_REGISTRY}}/paolocarta/spring-cloud-k8s-boss:{{.VERSION}}"
+  artifacts:
+  - imageName: changeme
+    workspace: .
+    docker: {}
+  local: {}
+deploy:
+  kubectl:
+    manifests:
+profiles:
+- name: dev
+  build:
+    tagPolicy:
+      envTemplate:
+        template: "{{.DOCKER_REGISTRY}}/paolocarta/spring-cloud-k8s-boss:{{.DIGEST_HEX}}"
+    artifacts:
+    - docker: {}
+    local: {}
+  deploy:
+    helm:
+      releases:
+      - name: spring-cloud-k8s-boss
+        chartPath: charts/spring-cloud-k8s-boss
+        setValueTemplates:
+          image.repository: "{{.DOCKER_REGISTRY}}/paolocarta/spring-cloud-k8s-boss"
+          image.tag: "{{.TAG}}"
