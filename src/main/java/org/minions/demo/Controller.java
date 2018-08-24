@@ -3,6 +3,7 @@ package org.minions.demo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,14 +27,14 @@ public class Controller {
     @Value("boss")
     private String appName;
 
-    @RequestMapping(method = POST, path = "/mission/{minion}")
-    public String mission(@PathVariable("minion") String minion) {
+    @GetMapping(path = "/mission/{minion}")
+    public String mission(@PathVariable String minion) {
         LOG.info("Minion: " + minion + " is ready to work!");
         int randomTask = new Random().nextInt(missionTypes.length);
         return missionTypes[randomTask];
     }
 
-    @RequestMapping(method = GET, path = "/")
+    @GetMapping(path = "/")
     public String boss() throws UnknownHostException {
 
         StringBuilder stringBuilder = new StringBuilder();
