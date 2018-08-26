@@ -1,4 +1,4 @@
-FROM openjdk:8-jdk-slim
+FROM openjdk:8-jre-alpine
 ENV PORT 8080
 ENV CLASSPATH /opt/lib
 EXPOSE 8080
@@ -11,4 +11,5 @@ COPY pom.xml target/lib* /opt/lib/
 # we could do with a better way to know the name - or to always create an app.jar or something
 COPY target/*.jar /opt/app.jar
 WORKDIR /opt
-CMD ["java", "-jar", "app.jar"]
+
+ENTRYPOINT exec java -Xms256m -Xmx256m -XX:MaxMetaspaceSize=128m $JAVA_OPTS -jar app.jar
